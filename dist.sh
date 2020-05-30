@@ -275,7 +275,11 @@ set_android_env()
 {
     #JDK=jdk1.8.0_202.jdk
     # Set ANDROID_HOME because setting sdk.dir in local.properties isn't always reliable
-    export ANDROID_HOME=/Users/$USER/Library/Android/sdk
+    if [[ $OSNAME = *"darwin"* ]]; then
+        export ANDROID_HOME=/Users/$USER/Library/Android/sdk
+    else
+        export ANDROID_HOME=/home/$USER/Android/Sdk
+    fi
     export PATH=/Library/Java/JavaVirtualMachines/$JDK/Contents/Home/bin/:${PATH}
     export PATH=/Users/$USER/Library/Android/sdk/platform-tools/:${PATH}
     GRADLE_ARGS=--stacktrace
@@ -290,9 +294,9 @@ android()
     copy_root_java_sources_to_projects
     # NOTE: There's no reason this won't build on linux, it's just that
     # for our purposes we limit this to execution on macOS
-    if [[ ! $OSNAME = *"darwin"* ]]; then
-        exit 0
-    fi
+    #if [[ ! $OSNAME = *"darwin"* ]]; then
+    #    exit 0
+    #fi
     # CMake build files
     BUILD_DIR=$(pwd)/tmp/android-$1
     mkdir -p $BUILD_DIR
