@@ -445,7 +445,7 @@ endif ()
 
 # libzt.so/dylib/dll
 add_library (${DYNAMIC_LIB_NAME} SHARED ${libztSrcGlob})
-target_link_libraries (${DYNAMIC_LIB_NAME} zt_pic lwip_pic zto_pic natpmp_pic miniupnpc_pic)
+target_link_libraries (${DYNAMIC_LIB_NAME} zt_pic lwip_pic zto_pic natpmp_pic miniupnpc_pic pthread)
 set_target_properties (${DYNAMIC_LIB_NAME} PROPERTIES COMPILE_FLAGS "${ZT_FLAGS}")
 set_target_properties (${DYNAMIC_LIB_NAME} PROPERTIES OUTPUT_NAME ${DYNAMIC_LIB_OUTPUT_NAME}
                                     WINDOWS_EXPORT_ALL_SYMBOLS true)
@@ -491,15 +491,15 @@ endif ()
 
 if (SHOULD_BUILD_TESTS)
 	add_executable (earthtest ${PROJ_DIR}/examples/cpp/earthtest.cpp)
-	target_link_libraries(earthtest ${STATIC_LIB_NAME})
+	target_link_libraries(earthtest ${STATIC_LIB_NAME} pthread)
 	add_executable (adhoc ${PROJ_DIR}/examples/cpp/adhoc.cpp)
-	target_link_libraries(adhoc ${STATIC_LIB_NAME})
+	target_link_libraries(adhoc ${STATIC_LIB_NAME} pthread)
 	add_executable (comprehensive ${PROJ_DIR}/examples/cpp/comprehensive.cpp)
-	target_link_libraries(comprehensive ${STATIC_LIB_NAME})
+	target_link_libraries(comprehensive ${STATIC_LIB_NAME} pthread)
 	add_executable (client ${PROJ_DIR}/examples/cpp/client.cpp)
-	target_link_libraries(client ${STATIC_LIB_NAME})
+	target_link_libraries(client ${STATIC_LIB_NAME} pthread)
 	add_executable (server ${PROJ_DIR}/examples/cpp/server.cpp)
-	target_link_libraries(server ${STATIC_LIB_NAME})
+	target_link_libraries(server ${STATIC_LIB_NAME} pthread)
 endif ()
 
 # -----------------------------------------------------------------------------
