@@ -312,9 +312,10 @@ android()
     UPPERCASE_CONFIG="$(tr '[:lower:]' '[:upper:]' <<< ${1:0:1})${1:1}"
     CMAKE_FLAGS="-DSDK_JNI=1 -DSDK_JNI=ON"
     cd $ANDROID_PROJ_DIR
-    ./gradlew $GRADLE_ARGS
+    #./gradlew $GRADLE_ARGS
+    echo "Building for $UPPERCASE_CONFIG mode"
     ./gradlew $GRADLE_ARGS assemble$UPPERCASE_CONFIG # assembleRelease / assembleDebug
-    mv $ANDROID_PROJ_DIR/app/build/outputs/aar/app-$1.aar \
+    mv $ANDROID_PROJ_DIR/app/build/outputs/aar/app.aar \
         $LIB_OUTPUT_DIR/libzt-$1.aar
     cd -
 }
